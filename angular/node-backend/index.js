@@ -86,20 +86,20 @@ app.post('/add-book', (req, res) => {
   })
 })
 
-// app.get('/books-list', (req, res) => {
-//   // console.log('Books');
-//   book.query(Book, (err, results) => {
-//     if(err){
-//       console.log(err, 'error');
-//     }
-//     if(results.length > 0){
-//       res.send({
-//         message:'All Book Data',
-//         book:results
-//       })
-//     }
-//   })
-// })
+app.get('/books-list', (req, res) => {
+  console.log('Books');
+  book.query(Book, (err, results) => {
+    if(err){
+      console.log(err, 'error');
+    }
+    if(results.length > 0){
+      res.send({
+        message:'All Book Data',
+        book:results
+      })
+    }
+  })
+})
 
 // app.get('/books-list', (req, res) => {
 //   console.log('Get All Books');
