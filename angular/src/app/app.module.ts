@@ -10,7 +10,7 @@ import { BooksListComponent } from './component/books-list/books-list.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { CrudService } from './service/crud.service';
-import { UploadFileComponent } from './upload-file/upload-file.component';
+import { UploadFileComponent } from './component/upload-file/upload-file.component';
 
 
 @NgModule({

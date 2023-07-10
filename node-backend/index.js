@@ -32,7 +32,8 @@ book.save()
 .catch(() => console.log('Connected data failed!'));
  
 const bookRoute = require('./route/book.routes');
- 
+// const UploadRoute = require('./route/upload.routes') ;
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -44,18 +45,19 @@ app.use('/', express.static(path.join(__dirname, 'dist/angular')));
  
 // API root
 app.use('/api', bookRoute)
+// app.use('api', UploadRoute)
 
 // 404 Handler
-app.use((req, res, next) => {
+app.use((_req, _res, next) => {
   next(createError(404));
 });
  
 // Base Route
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('welcome');
 });
  
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
@@ -71,7 +73,7 @@ app.post('/add-book', async (req, res) => {
 //   res.json(book)
 // })
 
-app.get('/books-list', async (req, res) => {
+app.get('/books-list', async (_req, res) => {
   const book = await Book.find({});
   res.json(book)
 })
@@ -89,9 +91,12 @@ app.get('/books-list', async (req, res) => {
 //     }
 //   })
 // })
- 
+
+app.post('/upload-file', async (req, res) => {
+})
+
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, _req, res, _next) {
   console.error(err.message);
   if (!err.statusCode) err.statusCode = 500;
   res.status(err.statusCode).send(err.message);

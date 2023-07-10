@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>JQuery</title>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  </head>
+  <body>
+    <form (ngSubmit)="onSubmit()">
+    <h1>Select file to upload and convert into base64 string</h1>
+    <br>
+    <label for="fileUpload">Upload File</label>
+    <input type="file" id="fileUpload" name="fileUpload"/>
+    <br>
+    <button type="submit">Send</button>
+    </form>
+  </body>
+</html>
+<script src="/node-backend/upload.js"></script>

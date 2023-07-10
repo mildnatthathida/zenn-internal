@@ -1,11 +1,8 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Book } from './Book';
-import { FormBuilder, Validators } from '@angular/forms';
-
-// const baseUrl = 'http://localhost:8000/api/books';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +66,7 @@ export class CrudService {
         catchError(this.handleError)
       )
   }
- 
+  
  
   // Error 
   handleError(error: HttpErrorResponse) {

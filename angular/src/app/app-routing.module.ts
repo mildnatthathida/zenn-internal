@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddBookComponent } from './component/add-book/add-book.component';
 import { BookDetailComponent } from './component/book-detail/book-detail.component';
 import { BooksListComponent } from './component/books-list/books-list.component';
-import { UploadFileComponent } from './upload-file/upload-file.component';
+import { UploadFileComponent } from './component/upload-file/upload-file.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'add-book'},
