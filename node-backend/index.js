@@ -5,11 +5,14 @@ const  cors = require('cors');
 const  bodyParser = require('body-parser');
 const  mongoDb = require('./database/db');
 const createError = require('http-errors');
+// const fileUpload =require('express-fileupload');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+// app.use(bodyParser.text());
+// app.use(fileUpload());
 
 // PORT
 const port = process.env.PORT || 8000
@@ -23,29 +26,36 @@ mongoose.connect(mongoDb.db, {
   useUnifiedTopology: true
 })
 
-const Book = mongoose.model('books', {name: String});//create collection
-
+//create collection
+const Book = mongoose.model('books', {name: String});
+const File = mongoose.model('files', {name: String});
 const book = new Book(); 
+const file = new File(); 
 
 book.save()
 .then(() => console.log('Connected data successfully!'))
 .catch(() => console.log('Connected data failed!'));
- 
-const bookRoute = require('./route/book.routes');
-// const UploadRoute = require('./route/upload.routes') ;
 
-app.use(express.json());
+file.save()
+.then(() => console.log('Connected data file successfully!'))
+.catch(() => console.log('Connected data file failed!'));
+
+const bookRoute = require('./route/book.routes');
+const fileRoute = require('./route/upload.routes');
+
+app.use(express.json({limit: '24mb'}));
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: false,
+  limit: '24mb'
 }));
- 
+
 // Static directory path
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/', express.static(path.join(__dirname, 'dist/angular')));
  
 // API root
 app.use('/api', bookRoute)
-// app.use('api', UploadRoute)
+app.use('/api', fileRoute)
 
 // 404 Handler
 app.use((_req, _res, next) => {
@@ -68,31 +78,9 @@ app.post('/add-book', async (req, res) => {
   res.status(201).end();
 })
 
-// app.get('/add-book', async (req, res) => {
-//   const book = await Book.find({});
-//   res.json(book)
-// })
-
 app.get('/books-list', async (_req, res) => {
   const book = await Book.find({});
   res.json(book)
-})
-
-// app.get('/books-list', (req, res) => {
-//   book.query(Book, (err, results) => {
-//     if(err){
-//       console.log(err, 'error');
-//     }
-//     if(results.length > 0){
-//       res.send({
-//         message:'All Book Data',
-//         book:results
-//       })
-//     }
-//   })
-// })
-
-app.post('/upload-file', async (req, res) => {
 })
 
 // error handler

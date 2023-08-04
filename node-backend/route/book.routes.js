@@ -23,12 +23,12 @@ bookRoute.post('/add-book', async (req, res) => {
   }
 })
 
-bookRoute.get('/add-book', (req, res) => {
-  console.log('api/add-book');
-  // book.
-  res.json(Book);
-  // return ;
-})
+// bookRoute.get('/add-book', (req, res) => {
+//   console.log('api/add-book');
+//   // book.
+//   res.json(Book);
+//   // return ;
+// })
 
 //Get all
 bookRoute.get('/books-list', async (req, res) => {
@@ -52,6 +52,5 @@ catch(error){
     res.status(500).json({message: error.message})
 }
 })
-
 
 module.exports = bookRoute;

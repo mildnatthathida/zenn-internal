@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { response } from 'express';
-import { Book } from 'src/app/service/Book';
+import { Book } from 'src/app/service/Service';
 import { CrudService } from 'src/app/service/crud.service';
 
 @Component({

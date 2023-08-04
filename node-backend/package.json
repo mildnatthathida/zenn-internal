@@ -1,21 +1,18 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "node-backend",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon index.js"
+    "start": "node ./bin/www"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.2",
+    "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "mongoose": "^7.3.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^7.4.1",
+    "morgan": "~1.9.1"
   }
 }

@@ -1,17 +1,28 @@
 <html>
   <head>
-    <title>JQuery</title>
+    <title>file Upload</title>
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   </head>
   <body>
-    <form (ngSubmit)="onSubmit()">
-    <h1>Select file to upload and convert into base64 string</h1>
-    <br>
-    <label for="fileUpload">Upload File</label>
-    <input type="file" id="fileUpload" name="fileUpload"/>
-    <br>
-    <button type="submit">Send</button>
+    <!--  (ngSubmit)="onSubmit()" -->
+    <form id="uploadForm" action="/api/upload-file" method="POST" enctype="multipart/form-data"> 
+      <h1>Select file to upload and convert into base64 string</h1>
+      <br>
+      <!-- <label for="fileUpload">pdf2base64 : </label>
+      <input type="file" id="fileUpload" name="fileUpload" required><br>
+      <br> -->
+      <label for="file">API File : </label>
+      <input  accept=".pdf" id="file" type="file" name="file"><br>
+      <br>
+      <!-- <label for="blobFile">blob URL : </label>
+      <input id="blobFile" type="file" name="blobFile" required><br>
+      <br> -->
+      <button class="btn btn-primary btn-block" type="submit">Send</button>
+      <!-- <app-upload-file *ngIf="uploadedFile" [uploadedFile]="uploadedFile"></app-upload-file> -->
+      
     </form>
+    <div id="message"></div>
+    <script src="./uploadfile.js"></script>
   </body>
+
 </html>
-<script src="/node-backend/upload.js"></script>

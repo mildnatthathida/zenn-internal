@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Book } from './Book';
+import { Book } from './Service';
+import { File } from './Service';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,27 @@ export class CrudService {
       )
   }
   
+   
+  // Add
+  // AddFile(data: File): Observable<File> {
+  //   let API_URL = `${this.REST_API}/upload-file`;
+  //   return this.httpClient.post<File>(API_URL, data)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     )
+  // }
+ 
+  // // Get all objects
+  // GetFile(): Observable<any>{
+  //   return this.httpClient.get<File[]>(`${this.REST_API}/upload-file`)
+  //   .pipe(map((res: any) => {
+  //     return res || {
+  //       message: "No files found"
+  //     }
+  //   }),
+  //   catchError(this.handleError)
+  // )
+  // }
  
   // Error 
   handleError(error: HttpErrorResponse) {

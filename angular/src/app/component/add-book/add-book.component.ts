@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { CrudService } from 'src/app/service/crud.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Book } from 'src/app/service/Book';
+import { Book } from 'src/app/service/Service';
 
 @Component({
   selector: 'app-add-book',
