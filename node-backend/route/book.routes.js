@@ -23,13 +23,6 @@ bookRoute.post('/add-book', async (req, res) => {
   }
 })
 
-// bookRoute.get('/add-book', (req, res) => {
-//   console.log('api/add-book');
-//   // book.
-//   res.json(Book);
-//   // return ;
-// })
-
 //Get all
 bookRoute.get('/books-list', async (req, res) => {
   console.log('api/books-list');
@@ -51,6 +44,24 @@ bookRoute.get('/books-list/:id',async (req,res)=>{
 catch(error){
     res.status(500).json({message: error.message})
 }
+})
+
+bookRoute.delete('/delete-book/:id' , (req,res) => {
+  const bookId = req.params.id;
+
+  Book.findByIdAndRemove(bookId)
+  .then(deletedBook => {
+    if(!deletedBook){
+      return res.status(404).send(`No book found with id : ${bookId}`)
+    }
+    res.json({
+      message: 'Book deleted successfully'
+    });
+  }).catch(error => {
+    res.status(500).json({ 
+      message: 'An error occurred while deleting the book', error 
+    });
+  });
 })
 
 module.exports = bookRoute;

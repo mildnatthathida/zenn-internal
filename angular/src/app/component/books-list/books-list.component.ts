@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { response } from 'express';
-import { Book } from 'src/app/service/Service';
 import { CrudService } from 'src/app/service/crud.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-books-list',
@@ -14,39 +12,33 @@ export class BooksListComponent implements OnInit {
    
   Books:any = [];
  
-  constructor(private crudService: CrudService, private fb:FormBuilder) { 
-    
-  }
+  constructor(
+    private crudService: CrudService,
+    public router : Router
+  ) { }
  
   ngOnInit(): void {
-    // this.crudService.GetBooks().subscribe((data) => {
-    //   this.Books = data;
-    // })
+    this.GetBooks();
   }
 
   GetBooks(){
     this.crudService.GetBooks().subscribe(data => {
-      for(const d of (data as any)){
-        this.Books.get({
-          name: d.name,
-          price: d.price,
-          description: d.description
-        });
-      }
+      this.Books = data;
       console.log(this.Books);
     })
   }
  
   delete(id:any, i:any) {
     console.log(id);
-    this.crudService.deleteBook(id,i).subscribe(res => {
-      return this.Books.push(res);
+    this.crudService.deleteBook(id).subscribe(() =>{
+      return this.Books.splice(i, 1);
     })
-    // if(window.confirm('Do you want to go ahead?')) {
-    //   this.crudService.deleteBook(id).subscribe((res) => {
-    //     this.Books.splice(i, 1);
-    //   })
-    // }
+  }
+
+  editBook(id : any){
+    this.crudService.GetBook(id).subscribe(book => {
+      this.router.navigate(['/edit-book', id]); // Redirect to the edit book page
+    });
   }
  
 }
