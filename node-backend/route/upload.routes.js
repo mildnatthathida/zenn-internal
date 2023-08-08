@@ -46,16 +46,7 @@ router.post('/upload-file',upload.single('file'),async(req, res) => {
 })
 router.get('/upload-file', async (req, res) => {
   console.log('GET Download api/upload-file');
-
-  // const filename = req.params.title;
-  // const filePath = path.join(__dirname, '../uploads', filename)
   try{
-    // res.download(filePath, (err) => {
-    //   if(err){
-    //     console.error('Error downloading file:', err);
-    //     return res.status(500).json({message: 'Error downloading file'})
-    //   }
-    // })
     const data = await Filepdf.find({})
     res.status(200).json(data)
   }catch(err){
