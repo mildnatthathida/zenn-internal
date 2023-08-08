@@ -15,7 +15,6 @@ const upload = multer({
 });
 
 router.post('/upload-file',upload.single('file'),async(req, res) => {
-  console.log('api//upload-file-test upload.routes');
   // console.log(req.file);
   const pdfBlob = req.file.path;
   try{

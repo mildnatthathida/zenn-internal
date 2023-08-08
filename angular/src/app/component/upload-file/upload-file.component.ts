@@ -34,11 +34,10 @@ export class UploadFileComponent implements OnInit {
 
   uploadFile(file: File): void {
     setTimeout(() => {
-      this.uploadMessage = `File "${file.name}" uploaded successfully.`;
       console.log('Uploaded Successfully.')
-
       this.uploadService.uploadFile(file).subscribe({
         next: (res) => {
+          this.uploadMessage = `File "${file.name}" uploaded successfully.`;
           console.log(res)
           this.submitted = true;
         }
