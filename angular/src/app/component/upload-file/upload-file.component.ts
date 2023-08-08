@@ -1,9 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UploadService } from 'src/app/service/upload.service';
 // import { getBase64 } from './upload';
-// import { blobfile } from './Blob';
+
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
@@ -11,49 +10,40 @@ import { UploadService } from 'src/app/service/upload.service';
 })
 export class UploadFileComponent implements OnInit {
 
-  fileToUpload : File | null = null;
-  uploadedFile: any;
   submitted = false;
+  uploadMessage: string = '';
 
-  constructor( private uploadService: UploadService ) {}
+  constructor( 
+    private uploadService: UploadService,
+    public formBuilder: FormBuilder, 
+  ) {}
 
   ngOnInit(): void {
   }
 
-  handleFileInput(files: FileList){
-    this.fileToUpload = files.item(0);
-  }
-
-  uploadFile(){
-    if (!this.fileToUpload) {
-      console.log('No file selected.');
-      return; // Exit the method if no file is selected
-    }
-
-    this.uploadService.uploadPdf(this.fileToUpload).subscribe((res) =>{
-      console.log('Upload successful : ' , res)
-      this.uploadedFile = res.uploadedFile;
-    },(err) => {
-      console.error('Upload failed:', err);
-    })
-  }
   onSubmit(): void{
-    // const data ={
-    //   "title":this.fileForm.value,
-    //   "textContent":this.fileForm.value,
-    // }
+    const fileInput = document.getElementById('file') as HTMLInputElement;
+    const file = fileInput?.files?.[0];
 
-    // this.uploadService.AddFile(data)
-    // .subscribe({
-    //   next: (res) => {
-    //     console.log(res)
-    //     console.log('Data added successfully')
-    //     this.submitted = true;
-    //   }
-    // });
-    // this.ngZone.run(() =>this.router.navigateByUrl('/upload-file'));
-
-    // // getBase64();
-
+    if(file) {
+      this.uploadFile(file);
+    } else {
+      this.uploadMessage = 'Please select a file to upload.';
+    }
   }
+
+  uploadFile(file: File): void {
+    setTimeout(() => {
+      this.uploadMessage = `File "${file.name}" uploaded successfully.`;
+      console.log('Uploaded Successfully.')
+
+      this.uploadService.uploadFile(file).subscribe({
+        next: (res) => {
+          console.log(res)
+          this.submitted = true;
+        }
+      })
+    }, 2000);
+  }
+
 }

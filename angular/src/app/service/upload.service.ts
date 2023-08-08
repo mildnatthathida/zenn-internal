@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 // import { File } from './Service';
@@ -18,17 +18,22 @@ export class UploadService {
    
   // Add
 
-  uploadPdf(file: File): Observable<any>{
+  uploadFile(file: File): Observable<any>{
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     let API_URL = `${this.REST_API}/upload-file`;
-    const httpOptions = {
-      headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
-    };
-    return this.httpClient.post<any>(API_URL, formData, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      )
+
+    const req = new HttpRequest('POST', API_URL , formData, {
+      reportProgress: true,
+    });
+    return this.httpClient.request(req);
+    // const httpOptions = {
+    //   headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
+    // };
+    // return this.httpClient.post<any>(API_URL, formData, httpOptions)
+    //   .pipe(
+    //     catchError(this.handleError)
+    //   )
   }
  
   // Get all objects

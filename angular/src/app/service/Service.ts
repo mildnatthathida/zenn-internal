@@ -6,6 +6,7 @@ export class Book {
 }
 
 export class File {
+    _id: String = '';
     title: String = '';
     textContent: String = '';
 }
