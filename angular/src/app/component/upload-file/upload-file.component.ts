@@ -24,7 +24,7 @@ export class UploadFileComponent implements OnInit {
   onSubmit(): void{
     const fileInput = document.getElementById('file') as HTMLInputElement;
     const file = fileInput?.files?.[0];
-
+    
     if(file) {
       this.uploadFile(file);
     } else {

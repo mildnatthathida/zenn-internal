@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CrudService } from 'src/app/service/crud.service';
 import { Router } from '@angular/router';
+import { Book } from 'src/app/service/Service';
 
 @Component({
   selector: 'app-books-list',
@@ -14,7 +15,8 @@ export class BooksListComponent implements OnInit {
  
   constructor(
     private crudService: CrudService,
-    public router : Router
+    public router : Router,
+    private ngZone: NgZone,
   ) { }
  
   ngOnInit(): void {
@@ -35,11 +37,12 @@ export class BooksListComponent implements OnInit {
     })
   }
 
-  editBook(id : any){
-    this.crudService.GetBook(id).subscribe(book => {
-      console.log(book)
-      this.router.navigate(['/edit-book', id]); // Redirect to the edit book page
-    });
-  }
+  // editBook(id : any){
+  //   this.crudService.GetBook(id).subscribe(book => {
+  //     console.log(book)
+  //     // Redirect to the edit book page
+  //     this.ngZone.run(() => this.router.navigateByUrl(`/edit-book/${id}`));
+  //   });
+  // }
  
 }

@@ -3,11 +3,7 @@ const app = express();
 const Filepdf = require('../model/upload');
 const fs = require('fs').promises; 
 const router = require('express').Router();
-const PDFParser = require('pdf-parse');
-const base64 = require('base-64');
-const path = require("path")
 const multer = require('multer');
-const { write } = require('fs');
 
 const upload = multer({ 
   dest: './uploads/',
@@ -17,6 +13,7 @@ const upload = multer({
 router.post('/upload-file',upload.single('file'),async(req, res) => {
   // console.log(req.file);
   const pdfBlob = req.file.path;
+
   try{
       const pdfdata = await fs.readFile(pdfBlob);
       const base64Data =pdfdata.toString('base64');
@@ -44,7 +41,6 @@ router.post('/upload-file',upload.single('file'),async(req, res) => {
   }
 })
 router.get('/upload-file', async (req, res) => {
-  console.log('GET Download api/upload-file');
   try{
     const data = await Filepdf.find({})
     res.status(200).json(data)

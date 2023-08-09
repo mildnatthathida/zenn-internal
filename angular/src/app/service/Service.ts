@@ -1,8 +1,10 @@
 export class Book {
-    _id: String = '';
-    name: String = '';
-    price: String = '';
-    description: String = '';
+    constructor(
+        public _id: string,
+        public name: String,
+        public price: String,
+        public description: String
+    ){}
 }
 
 export class File {

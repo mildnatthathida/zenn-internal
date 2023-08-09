@@ -25,7 +25,6 @@ bookRoute.post('/add-book', async (req, res) => {
 
 //Get all
 bookRoute.get('/books-list', async (req, res) => {
-  console.log('api/books-list');
   try{
     const data = await Book.find();
     res.json(data)
@@ -65,20 +64,31 @@ bookRoute.delete('/delete-book/:id' , (req,res) => {
 })
 
 bookRoute.put('/books-list/:id' , async (req, res) => {
-  const bookid = req.params.id
+  console.log('Change This Id : ', req.params.id)
+  const bookId = req.params.id
 
   const updateBook = {}
   updateBook.name = req.body.name
   updateBook.price = req.body.price,
   updateBook.description = req.body.description
 
-  await Book.findByIdAndUpdate(bookid, updateBook, function(err, updateData){
-    if(err){
-      console.log('Error in updating ' + err)
+  try{
+    const updateDoc = await Book.findByIdAndUpdate(
+      bookId,
+      updateBook,
+      {new: true}
+    );
+    if(updateDoc) {
+      res.json({
+        message: 'Book updated successfully', book: updateDoc
+      })
     } else {
-      console.log('Updated Book Successfully. ' + updateData)
+      res.status(404).json({ error: 'Book not found' });
     }
-  })
+  } catch (err){
+    console.error(err);
+    res.status(500).json({ err : 'Internal server error' });
+  }
 })
 
 module.exports = bookRoute;

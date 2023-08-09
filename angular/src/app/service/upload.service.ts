@@ -27,13 +27,6 @@ export class UploadService {
       reportProgress: true,
     });
     return this.httpClient.request(req);
-    // const httpOptions = {
-    //   headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
-    // };
-    // return this.httpClient.post<any>(API_URL, formData, httpOptions)
-    //   .pipe(
-    //     catchError(this.handleError)
-    //   )
   }
  
   // Get all objects
