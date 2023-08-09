@@ -37,6 +37,7 @@ export class BooksListComponent implements OnInit {
 
   editBook(id : any){
     this.crudService.GetBook(id).subscribe(book => {
+      console.log(book)
       this.router.navigate(['/edit-book', id]); // Redirect to the edit book page
     });
   }

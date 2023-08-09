@@ -64,4 +64,21 @@ bookRoute.delete('/delete-book/:id' , (req,res) => {
   });
 })
 
+bookRoute.put('/books-list/:id' , async (req, res) => {
+  const bookid = req.params.id
+
+  const updateBook = {}
+  updateBook.name = req.body.name
+  updateBook.price = req.body.price,
+  updateBook.description = req.body.description
+
+  await Book.findByIdAndUpdate(bookid, updateBook, function(err, updateData){
+    if(err){
+      console.log('Error in updating ' + err)
+    } else {
+      console.log('Updated Book Successfully. ' + updateData)
+    }
+  })
+})
+
 module.exports = bookRoute;

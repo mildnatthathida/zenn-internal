@@ -5,14 +5,11 @@ const  cors = require('cors');
 const  bodyParser = require('body-parser');
 const  mongoDb = require('./database/db');
 const createError = require('http-errors');
-// const fileUpload =require('express-fileupload');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-// app.use(bodyParser.text());
-// app.use(fileUpload());
 
 // PORT
 const port = process.env.PORT || 8000
@@ -70,18 +67,6 @@ app.get('/', (_req, res) => {
 app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
-
-app.post('/add-book', async (req, res) => {
-  const data = req.body;
-  const book = new Book(data);
-  await book.save();
-  res.status(201).end();
-})
-
-app.get('/books-list', async (_req, res) => {
-  const book = await Book.find({});
-  res.json(book)
-})
 
 // error handler
 app.use(function (err, _req, res, _next) {
